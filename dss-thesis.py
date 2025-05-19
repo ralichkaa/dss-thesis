@@ -159,7 +159,7 @@ print(na_counts[na_counts > 85000])
 # Filter columns with <= 85,000 missing values
 columns_to_keep = na_counts[na_counts <= 85000].index
 
-# Subset the DataFrame
+# Subset the df
 df_filtered = df[columns_to_keep]
 
 df = df_filtered
@@ -227,7 +227,7 @@ print(na_row_level_sorted)
 
 
 #Numeric vs Categorical columns splitted before Imputation is applied
-# Step 1: Identify columns with missing values
+# Identify columns with missing values
 missing_columns = df_selected.columns[df_selected.isna().sum() > 0]
 print(missing_columns)
 
@@ -254,7 +254,7 @@ emp_length_mapping = {
     'n/a': np.nan 
 }
 
-# Apply the mapping to the 'emp_length' column
+# Applying the mapping to the 'emp_length' column
 df_selected['emp_length'] = df_selected['emp_length'].map(emp_length_mapping)
 
 # Check the unique values in the 'emp_length' column after mapping
@@ -267,7 +267,7 @@ df_selected['term'] = df_selected['term'].str.extract('(\d+)').astype(float)
 # Now all the columns with missing values except the zip_code column are float64 data type
 
 #Zip code will be treated differently with regards to imputation (compared to numeric columns)
-# #The most frequent zip_code within the specific state will be chosen
+#The most frequent zip_code within the specific state will be chosen
 
 # Group by 'state' and get the most frequent zip code for each state
 most_frequent_zip_by_state = df_selected.groupby('addr_state')['zip_code'].agg(lambda x: x.mode()[0])
