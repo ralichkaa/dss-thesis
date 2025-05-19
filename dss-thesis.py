@@ -35,6 +35,7 @@ from sklearn.metrics import (
 
 # Visualization 
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 
 # Utility
 import warnings
@@ -687,6 +688,43 @@ plt.show()
 
 df_categorical = df_selected.select_dtypes(exclude=['number'])
 df_categorical.head()
+
+# Group by grade and loan status
+grade_status_counts = df_selected.groupby(['grade', 'loan_status']).size().unstack(fill_value=0)
+
+# Define a custom colormap: purple → blue
+num_classes = grade_status_counts.shape[1]
+
+# Use a list of manually defined distinct shades from purple to blue
+color_list = [
+    '#6a0dad',
+    '#7b68ee', 
+    '#4169e1',  
+    '#1e90ff', 
+    '#00bfff', 
+    '#87cefa', 
+    '#b0e0e6', 
+    '#add8e6'   
+][:num_classes]
+
+# Create colormap
+custom_cmap = mcolors.ListedColormap(color_list)
+
+# Plot
+grade_status_counts.plot(
+    kind='bar',
+    stacked=True,
+    colormap=custom_cmap,
+    figsize=(10, 6)
+)
+
+plt.title('Loan Status Count per Grade')
+plt.xlabel('Grade')
+plt.ylabel('Number of Loans')
+plt.legend(title='Loan Status', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.tight_layout()
+plt.show()
+
 
 #####
 
