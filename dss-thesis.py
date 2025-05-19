@@ -572,8 +572,6 @@ plt.show()
 
 #Violin plots
 
-import matplotlib.pyplot as plt
-
 # Helper function to plot a violin chart in light purple
 def plot_violin(data, title, xlabel):
     plt.figure(figsize=(8, 6))
@@ -674,8 +672,16 @@ df_numeric.head()
 df_categorical = df_selected.select_dtypes(exclude=['number'])
 df_categorical.head()
 
+#Distribution histogram
+df_numeric.hist(
+    bins=30, 
+    figsize=(20, 15), 
+    color='darkblue', 
+    edgecolor='black',
+    grid=False
+)
 
-df_numeric.hist(bins=30, figsize=(20,10))
+plt.suptitle('Histograms of Numeric Features', fontsize=16, y=1.02)
 plt.tight_layout()
 plt.show()
 
